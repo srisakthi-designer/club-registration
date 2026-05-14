@@ -1,25 +1,80 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Club Registration System</title>
+<title>Club Registration</title>
+
+<style>
+body{
+font-family:Arial;
+padding:30px;
+}
+
+input,select,button{
+width:300px;
+padding:10px;
+margin:10px;
+}
+</style>
+
 </head>
 
 <body>
 
-<h2>Club Registration System</h2>
+<h1>Club Registration System</h1>
 
-<input placeholder="Name"><br><br>
-<input placeholder="Roll No"><br><br>
+<input id="name" placeholder="Student Name">
 
-<select>
-  <option>Coding Club</option>
-  <option>AI Club</option>
-  <option>Robotics Club</option>
-</select><br><br>
+<br>
 
-<button onclick="alert('Working site deployed')">
+<input id="roll" placeholder="Roll Number">
+
+<br>
+
+<input id="email" placeholder="Email">
+
+<br>
+
+<select id="club">
+<option>Coding Club</option>
+<option>AI Club</option>
+<option>Robotics Club</option>
+</select>
+
+<br>
+
+<button onclick="register()">
 Register
 </button>
+
+<p id="msg"></p>
+
+<script>
+
+const URL = "https://script.google.com/macros/s/AKfycbwYgUln1XCy1-dSKQ1ZBFLUDP2JMCCFtg2hxQvzrLZOuRywcpdSeH5pUMx_xGcLmSLL/exec";
+
+async function register(){
+
+let data = {
+name: document.getElementById("name").value,
+roll: document.getElementById("roll").value,
+email: document.getElementById("email").value,
+club: document.getElementById("club").value
+};
+
+let response = await fetch(URL,{
+method:"POST",
+body:JSON.stringify(data)
+});
+
+let result = await response.json();
+
+if(result.status=="SUCCESS"){
+document.getElementById("msg").innerHTML =
+"✅ Registration Successful";
+}
+}
+
+</script>
 
 </body>
 </html>
